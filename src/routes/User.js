@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Cookie from 'js-cookie';
 
 const User = () => {
     const apiUrl = "http://localhost:8080/user";
@@ -26,43 +27,26 @@ const User = () => {
           username: "beka",
           password: "beka"
         }
-  
+        let refresh = ""
         useEffect(() => {
           const result = axios(
-            'http://localhost:8080/user',
+            'http://localhost:8080/user', {headers : {
+              Authorization : "Bearer " + Cookie.get("access_token")
+            }}
           ).then(res => setUser(res.data))
+          .catch(
+            error => {console.log(error.response)}
+            )
         }, []);
   
     return (
         <div>
             <h1>User Page</h1>
+            {comment}
             {user.map(singleUser => {
               console.log(user) 
                 return (<li>{singleUser.username} </li>)
             })}
-            <div>
-              {user.map(singleUser => {
-                console.log(singleUser.content)
-                return(
-                  singleUser.content.map(content => {
-                    return( 
-                      <div style={{border:"solid"}}>
-                        <h1>Post</h1>
-                        <p>content : {content.body}</p>
-                        <hr/>
-                        {content.comment.map(com => {
-                          return(
-                            <div>
-                              <p>{com.text}</p>
-                            </div>
-                          )
-                        })}
-                      </div>
-                    )
-                  })    
-                )
-              })}
-            </div>
         </div>
     )
 }

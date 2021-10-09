@@ -7,6 +7,9 @@ import {
 } from "react-router-dom";
 
 import User from "./routes/User"
+import Login from './routes/Login';
+import SignUp from './routes/SignUp';
+import Home from './routes/Home';
 
 function App() {
 
@@ -16,7 +19,7 @@ function App() {
           <nav>
               <ul>
                 <li>
-                  <Link to="/">home</Link>
+                  <Link to="/home">home</Link>
                 </li>
                 <li>
                   <Link to="/login">login</Link>
@@ -31,15 +34,18 @@ function App() {
             </nav>
           <div>
         <Switch>
-          {/* <Route path="/home">
+          <Route path="/home">
             <Home />
-          </Route> */}
+          </Route>
           <Route path="/users">
             <User />
           </Route>
-          {/* <Route path="/login">
+          <Route path="/login">
             <Login />
-          </Route> */}
+          </Route>
+          <Route path="/signup">
+            <SignUp />
+          </Route>
         </Switch>
       </div>
         </Router>
